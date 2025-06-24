@@ -2,10 +2,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: estrutura-stack
+  name: observability-stack
   namespace: flux-system
 spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/fastII/estrutura-stack.git
+  url: https://github.com/fastII/observability-stack.git
