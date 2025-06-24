@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: observability
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: grafana
+      version: "7.3.7"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  values:
+    envFrom:
+      - configMapRef:
+          name: grafana-config
+    persistence:
+      enabled: true
+      size: 10Gi
+    service:
+      type: ClusterIP
+    ingress:
+      enabled: false
