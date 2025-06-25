@@ -19,8 +19,8 @@ spec:
       receivers:
         otlp:
           protocols:
-            grpc:
-            http:
+            grpc: {}
+            http: {}
       exporters:
         otlp:
           endpoint: tempo:4317
@@ -28,6 +28,7 @@ spec:
             insecure: true
         prometheus:
           endpoint: prometheus-server
+        logging: {}  # Exporter usado na pipeline de logs
       service:
         pipelines:
           logs:
@@ -35,7 +36,7 @@ spec:
             exporters: [logging]
           traces:
             receivers: [otlp]
-            exporters: [tempo]
+            exporters: [otlp]  # Corrigido: exportando para o Tempo via OTLP
           metrics:
             receivers: [otlp]
             exporters: [prometheus]
