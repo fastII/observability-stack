@@ -18,11 +18,3 @@ spec:
       enabled: true
     prometheus:
       prometheusSpec:
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: hostpath
-              accessModes: ["ReadWriteOnce"]
-              resources:
-                requests:
-                  storage: 50Gi
