@@ -39,4 +39,4 @@ spec:
             exporters: [otlp]  # Corrigido: exportando para o Tempo via OTLP
           metrics:
             receivers: [otlp]
-            exporters: [prometheus]
+            #exporters: [prometheus]
