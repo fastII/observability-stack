@@ -26,8 +26,8 @@ spec:
           endpoint: tempo:4317
           tls:
             insecure: true
-        prometheus:
-          endpoint: prometheus-server
+        #prometheus:
+        #  endpoint: prometheus-server
         logging: {}  # Exporter usado na pipeline de logs
       service:
         pipelines:
