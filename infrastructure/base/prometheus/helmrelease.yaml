@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   values:
     nodeExporter:
-      enabled: true
+      enabled: false
     prometheus:
       prometheusSpec:
         storageSpec:
