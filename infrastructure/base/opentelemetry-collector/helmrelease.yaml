@@ -22,9 +22,10 @@ spec:
             grpc:
             http:
       exporters:
-        logging:
-        tempo:
+        otlp:
           endpoint: tempo:4317
+          tls:
+            insecure: true
         prometheus:
           endpoint: prometheus-server
       service:
