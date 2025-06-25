@@ -8,33 +8,48 @@ spec:
   chart:
     spec:
       chart: opentelemetry-collector
-      version: "0.69.0"
       sourceRef:
         kind: HelmRepository
         name: open-telemetry
         namespace: flux-system
+      version: 0.78.0
   values:
     mode: deployment
     config:
       receivers:
         otlp:
           protocols:
-            grpc:
-            http:
+            grpc: {}
+            http: {}
+      processors:
+        batch: {}
       exporters:
-        logging:
-        tempo:
-          endpoint: tempo:4317
+        otlp:
+          endpoint: tempo.observability.svc.cluster.local:4317
+          tls:
+            insecure: true
         prometheus:
-          endpoint: prometheus-server
+          endpoint: "0.0.0.0:8889"
+        loki:
+          endpoint: http://loki.observability.svc.cluster.local:3100/loki/api/v1
+          labels:
+            attributes:
+              container: container.name
+              namespace: k8s.namespace.name
+              pod: k8s.pod.name
+        logging:
+          loglevel: debug
       service:
         pipelines:
-          logs:
-            receivers: [otlp]
-            exporters: [logging]
           traces:
             receivers: [otlp]
-            exporters: [tempo]
+            processors: [batch]
+            exporters: [otlp, logging]
           metrics:
             receivers: [otlp]
-            exporters: [prometheus]
+            processors: [batch]
+            exporters: [prometheus, logging]
+          logs:
+            receivers: [otlp]
+            processors: [batch]
+            exporters: [loki, logging]
