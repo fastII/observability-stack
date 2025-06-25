@@ -16,5 +16,5 @@ spec:
   values:
     nodeExporter:
       enabled: true
-    prometheus:
-      prometheusSpec:
+    #prometheus:
+    #  prometheusSpec:
