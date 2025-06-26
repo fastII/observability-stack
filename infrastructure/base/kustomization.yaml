@@ -5,7 +5,7 @@ namespace: observability
 
 resources:
   - namespace.yaml
-  - grafana
+  #- grafana
   - prometheus
   - tempo
   - opentelemetry-collector
