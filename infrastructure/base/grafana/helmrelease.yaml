@@ -13,10 +13,6 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-  values:
-    envFrom:
-      - configMapRef:
-          name: grafana-config
     persistence:
       enabled: true
       size: 10Gi
