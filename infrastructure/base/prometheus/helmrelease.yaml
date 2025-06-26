@@ -16,5 +16,7 @@ spec:
   values:
     nodeExporter:
       enabled: true
+    grafana:
+      enabled: false  
     #prometheus:
     #  prometheusSpec:
