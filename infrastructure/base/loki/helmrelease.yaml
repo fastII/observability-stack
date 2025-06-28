@@ -55,7 +55,7 @@ spec:
         #  retention_enabled: true
 
       persistence:
-        enabled: false  # Se quiser pode ativar PVC local aqui também
+        enabled: true  # Se quiser pode ativar PVC local aqui também
 
     promtail:
       enabled: true
