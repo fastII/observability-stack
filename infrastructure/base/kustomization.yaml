@@ -5,7 +5,7 @@ namespace: observability
 
 resources:
   - namespace.yaml
-  - loki-stack
+  - loki
   #- grafana
   - prometheus
   - tempo
