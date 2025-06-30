@@ -12,11 +12,9 @@ spec:
       chart: loki
       sourceRef:
         kind: HelmRepository
-        name: grafana-charts
-      interval: 60m
+        name: grafana
   values:
-    persistence:
-      enabled: false
+    
     chunksCache:
       enabled: false
     resultsCache:
