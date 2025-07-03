@@ -2,12 +2,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: devops-k8s-apps
+  name: observability-stack
   namespace: flux-system
 spec:
-  secretRef:
-    name: flux-system
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/bs2-bet/devops-k8s-apps
+  url: https://github.com/fastII/observability-stack.git

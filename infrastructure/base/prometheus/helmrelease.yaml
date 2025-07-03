@@ -1,3 +1,35 @@
+#piVersion: helm.toolkit.fluxcd.io/v2
+#ind: HelmRelease
+#etadata:
+# name: prometheus
+# namespace: observability
+#pec:
+# interval: 5m
+# chart:
+#   spec:
+#     chart: kube-prometheus-stack
+#     version: "58.5.0"
+#     sourceRef:
+#       kind: HelmRepository
+#       name: prometheus-community
+#       namespace: flux-system
+# values:
+#   nodeExporter:
+#     enabled: true
+#   grafana:
+#     enabled: true    
+#     defaultDashboardsEnabled: false
+#     admin: 
+#       existingSecret: grafana-admin-secret    
+#   prometheus:
+#     prometheusSpec:
+#       retention: 24h
+#       resources:
+#         requests:
+#           cpu: 200m
+#           memory: 200Mi
+
+
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -17,14 +49,35 @@ spec:
     nodeExporter:
       enabled: true
     grafana:
-      enabled: true    
+      enabled: true
+      image:
+        repository: grafana/grafana
+        tag: latest   
       defaultDashboardsEnabled: false
       admin: 
-        existingSecret: grafana-admin-secret    
+        existingSecret: grafana-admin-secret
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "512Mi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"      
     prometheus:
       prometheusSpec:
+        storageSpec:
+           volumeClaimTemplate:
+             spec:
+               storageClassName: hostpath
+               accessModes: ["ReadWriteOnce"]
+               resources:
+                 requests:
+                   storage: 30Gi
         retention: 24h
         resources:
           requests:
-            cpu: 200m
-            memory: 200Mi
+            cpu: 512m
+            memory: 256Mi
+          limits:
+            cpu: 1024m
+            memory: 512Mi  
