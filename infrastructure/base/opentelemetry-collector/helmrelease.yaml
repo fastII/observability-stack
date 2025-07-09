@@ -23,22 +23,13 @@ spec:
             grpc: {}
             http: {}
       
+      
       exporters:
-       otlphttp:
-         endpoint: http://tempo:4318
-         tls:
-           insecure: true
-       otlpgrpc:
-         endpoint: tempo:4317
-         tls:
-           insecure: true
-
-      #exporters:
-      #  otlp:
-      #    endpoint: tempo:4317
-      #    tls:
-      #      insecure: true
-      #  logging: {}  # Exporter para depuração/logs locais
+        otlp:
+          endpoint: tempo:4317
+          tls:
+            insecure: true
+        logging: {}  # Exporter para depuração/logs locais
 
       service:
         pipelines:
