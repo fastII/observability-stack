@@ -16,33 +16,29 @@ spec:
   values:
     mode: deployment
 
-    # Expor as portas gRPC e HTTP no service do Helm chart
-    service:
-      enabled: true
-      type: ClusterIP
-      ports:
-        - name: otlp-grpc
-          port: 4317
-          targetPort: 4317
-          protocol: TCP
-        - name: otlp-http
-          port: 4318
-          targetPort: 4318
-          protocol: TCP
-
     config:
       receivers:
         otlp:
           protocols:
             grpc: {}
             http: {}
-
+      
       exporters:
-        otlp:
-          endpoint: tempo:4317
-          tls:
-            insecure: true
-        logging: {}  # Exporter para depuração/logs locais
+       otlphttp:
+         endpoint: http://tempo:4318
+         tls:
+           insecure: true
+       otlpgrpc:
+         endpoint: tempo:4317
+         tls:
+           insecure: true
+
+      #exporters:
+      #  otlp:
+      #    endpoint: tempo:4317
+      #    tls:
+      #      insecure: true
+      #  logging: {}  # Exporter para depuração/logs locais
 
       service:
         pipelines:
