@@ -275,12 +275,21 @@ spec:
         volume_enabled: true
       commonConfig:
         replication_factor: 1
+<<<<<<< HEAD
+      storage:
+        type: 'filesystem'
+        bucketNames:
+          chunks: chunks
+          ruler: ruler
+          admin: admin
+=======
       storage:
         type: 'filesystem'
         bucketNames:
           chunks: chunks
           ruler: ruler
           admin: admin  
+>>>>>>> 3655c36ae21c4c9e614fce41650948bca89472ae
       schemaConfig:
         configs:
           - from: "2024-04-01"
@@ -290,14 +299,24 @@ spec:
             index:
               prefix: loki_index_
               period: 24h
+<<<<<<< HEAD
+      storage_config:
+        filesystem:
+          directory: /tmp/loki/chunks
+=======
       storage_config:
         filesystem:
           directory: /tmp/loki/chunks        
+>>>>>>> 3655c36ae21c4c9e614fce41650948bca89472ae
       pattern_ingester:
         enabled: true
       ruler:
         enable_api: true
+<<<<<<< HEAD
+      #auth_enabled: false
+=======
       #auth_enabled: false   
+>>>>>>> 3655c36ae21c4c9e614fce41650948bca89472ae
     minio:
       enabled: false
       #persistence:
@@ -313,6 +332,31 @@ spec:
       replicas: 1
       persistence:
         enabled: true
+<<<<<<< HEAD
+        storageClass: hostpath
+        size: 30Gi
+        accessModes:
+          - ReadWriteOnce
+        mountPath: /observability
+      resources:
+        requests:
+          cpu: "1"
+          memory: "2Gi"
+        limits:
+          cpu: "2"
+          memory: "4Gi"
+    sidecar:
+      image:
+        repository: kiwigrid/k8s-sidecar
+        tag: 1.30.0
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 100m
+          memory: 100Mi
+=======
         storageClass: hostpath
         size: 30Gi
         accessModes:
@@ -336,6 +380,7 @@ spec:
         limits:
           cpu: 100m
           memory: 100Mi                           
+>>>>>>> 3655c36ae21c4c9e614fce41650948bca89472ae
     backend:
       replicas: 0
     read:
@@ -360,5 +405,10 @@ spec:
       replicas: 0
     bloomGateway:
       replicas: 0
+<<<<<<< HEAD
+    chunksCache:
+      allocatedMemory: 1024
+=======
     chunksCache:
       allocatedMemory: 1024  
+>>>>>>> 3655c36ae21c4c9e614fce41650948bca89472ae
