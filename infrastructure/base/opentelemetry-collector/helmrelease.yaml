@@ -15,28 +15,43 @@ spec:
         namespace: flux-system
   values:
     mode: deployment
+
+    # Expor as portas gRPC e HTTP no service do Helm chart
+    service:
+      enabled: true
+      type: ClusterIP
+      ports:
+        - name: otlp-grpc
+          port: 4317
+          targetPort: 4317
+          protocol: TCP
+        - name: otlp-http
+          port: 4318
+          targetPort: 4318
+          protocol: TCP
+
     config:
       receivers:
         otlp:
           protocols:
             grpc: {}
             http: {}
+
       exporters:
         otlp:
           endpoint: tempo:4317
           tls:
             insecure: true
-        #prometheus:
-        #  endpoint: prometheus-server
-        logging: {}  # Exporter usado na pipeline de logs
+        logging: {}  # Exporter para depuração/logs locais
+
       service:
         pipelines:
+          traces:
+            receivers: [otlp]
+            exporters: [otlp, logging]  # Logging para debug
           logs:
             receivers: [otlp]
             exporters: [logging]
-          traces:
-            receivers: [otlp]
-            exporters: [otlp]  # Corrigido: exportando para o Tempo via OTLP
           metrics:
             receivers: [otlp]
-            #exporters: [prometheus]
+            #exporters: [prometheus]  # Descomente se desejar expor métricas para Prometheus
